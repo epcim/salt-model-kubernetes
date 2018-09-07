@@ -1,0 +1,10 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            helm:
+              name: salt-formula-helm
+              source: pkg
+

@@ -1,0 +1,54 @@
+classes:
+- salt.master.formula.pkg.logrotate
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            backupninja:
+              name: salt-formula-backupninja
+              source: pkg
+            cassandra:
+              name: salt-formula-cassandra
+              source: pkg
+            git:
+              name: salt-formula-git
+              source: pkg
+            iptables:
+              name: salt-formula-iptables
+              source: pkg
+            libvirt:
+              name: salt-formula-libvirt
+              source: pkg
+            linux:
+              name: salt-formula-linux
+              source: pkg
+            nginx:
+              name: salt-formula-nginx
+              source: pkg
+            ntp:
+              name: salt-formula-ntp
+              source: pkg
+            openssh:
+              name: salt-formula-openssh
+              source: pkg
+            reclass:
+              name: salt-formula-reclass
+              source: pkg
+            salt:
+              name: salt-formula-salt
+              source: pkg
+            sphinx:
+              name: salt-formula-sphinx
+              source: pkg
+            watchdog:
+              name: salt-formula-watchdog
+              source: pkg
+            xtrabackup:
+              name: salt-formula-xtrabackup
+              source: pkg
+            zookeeper:
+              name: salt-formula-zookeeper
+              source: pkg
+

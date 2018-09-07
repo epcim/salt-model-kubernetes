@@ -1,0 +1,30 @@
+classes:
+- kubernetes.common
+parameters:
+  kubernetes:
+    master:
+      container: false
+      enabled: true
+      kubelet:
+        fail_on_swap: ${_param:kubelet_fail_on_swap}
+      network:
+        calico:
+          calicoctl_image: ${_param:kubernetes_calico_calicoctl_image}
+          cni_image: ${_param:kubernetes_calico_cni_image}
+          enabled: ${_param:kubernetes_calico_enabled}
+          image: ${_param:kubernetes_calico_image}
+          kube_controllers_image: ${_param:kubernetes_calico_kube_controllers_image}
+        flannel:
+          enabled: ${_param:kubernetes_flannel_enabled}
+        genie:
+          enabled: ${_param:kubernetes_genie_enabled}
+          source: ${_param:kubernetes_genie_source}
+          source_hash: ${_param:kubernetes_genie_source_hash}
+        opencontrail:
+          cni_image: ${_param:kubernetes_contrail_cni_image}
+          enabled: ${_param:kubernetes_opencontrail_enabled}
+        sriov:
+          enabled: ${_param:kubernetes_sriov_enabled}
+          source: ${_param:kubernetes_sriov_source}
+          source_hash: ${_param:kubernetes_sriov_source_hash}
+

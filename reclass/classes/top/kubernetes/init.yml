@@ -1,0 +1,117 @@
+parameters:
+  _param:
+    # General
+    linux_system_codename: xenial
+    salt_minion_ca_host: ${_param:infra_config_hostname}.${_param:cluster_domain}
+    salt_minion_ca_authority: salt_master_ca
+
+    # kubernetes settings
+    kubernetes_admin_user: admin
+    kubernetes_admin_password: ${_param:kubernetes_admin_password_generated}
+    kubernetes_admin_token: ${_param:kubernetes_admin_token_generated}
+    kubernetes_kubelet_token: ${_param:kubernetes_kubelet_token_generated}
+    kubernetes_kube-proxy_token: ${_param:kubernetes_kube-proxy_token_generated}
+    kubernetes_scheduler_token: ${_param:kubernetes_scheduler_token_generated}
+    kubernetes_controller-manager_token: ${_param:kubernetes_controller-manager_token_generated}
+    kubernetes_dns_token: ${_param:kubernetes_dns_token_generated}
+    etcd_initial_token: ${_param:etcd_initial_token_generated}
+    kubernetes_rbd_user_id: kubernetes_lab
+    kubernetes_rbd_user_key: kubernetes_lab__key
+    kubernetes_rbd_pool: kubernetes_lab
+    kubernetes_rbd_monitors: 10.0.1.66:6789,10.0.1.67:6789,10.0.1.68:6789
+
+    # addresses and hostnames
+    kubernetes_internal_api_address: 10.254.0.1
+    kubernetes_internal_dns_address: 10.254.0.10
+    kubernetes_control_hostname: ctl
+    kubernetes_control_address: 10.0.1.10
+    kubernetes_control_node01_hostname: ctl01
+    kubernetes_control_node02_hostname: ctl02
+    kubernetes_control_node03_hostname: ctl03
+    kubernetes_control_node01_address: 10.0.1.11
+    kubernetes_control_node02_address: 10.0.1.12
+    kubernetes_control_node03_address: 10.0.1.13
+    kubernetes_proxy_hostname: prx
+    kubernetes_proxy_node01_hostname: prx01
+    kubernetes_proxy_node02_hostname: prx02
+    kubernetes_proxy_address: 172.17.10.80
+    kubernetes_proxy_node01_address: 172.17.10.81
+    kubernetes_proxy_node02_address: 172.17.10.82
+    cluster_vip_address: ${_param:kubernetes_control_address}
+    cluster_local_address: ${_param:single_address}
+    glusterfs_service_host: ${_param:kubernetes_control_node03_address}
+    # etcd stuff
+    cluster_node01_hostname: ${_param:kubernetes_control_node01_hostname}
+    cluster_node01_address: ${_param:kubernetes_control_node01_address}
+    cluster_node01_port: 4001
+    cluster_node02_hostname: ${_param:kubernetes_control_node02_hostname}
+    cluster_node02_address: ${_param:kubernetes_control_node02_address}
+    cluster_node02_port: 4001
+    cluster_node03_hostname: ${_param:kubernetes_control_node03_hostname}
+    cluster_node03_address: ${_param:kubernetes_control_node03_address}
+    cluster_node03_port: 4001
+
+    kubernetes_kubedns_enabled: False
+    kubernetes_externaldns_enabled: True
+    kubernetes_coredns_enabled: True
+    kubernetes_virtlet_enabled: False
+    kubernetes_flannel_enabled: False
+    kubernetes_genie_enabled: False
+    kubernetes_calico_enabled: True
+    kubernetes_opencontrail_enabled: False
+    kubernetes_contrail_network_controller_enabled: False
+    kubernetes_metallb_enabled: True
+    kubernetes_rbd_enabled: True
+
+    kubernetes_virtlet_use_apparmor: False
+    # calico
+    calico_private_network: 192.168.0.0
+    calico_private_netmask: 16
+    calico_policy_enabled: False
+    kubernetes_control_node01_tenant_address: 10.0.2.11
+    kubernetes_control_node02_tenant_address: 10.0.2.12
+    kubernetes_control_node03_tenant_address: 10.0.2.13
+
+  linux:
+    network:
+      resolv:
+        dns:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
+          - ${_param:kubernetes_internal_dns_address}
+      host:
+        prx:
+          address: ${_param:kubernetes_proxy_address}
+          names:
+          - ${_param:kubernetes_proxy_hostname}
+          - ${_param:kubernetes_proxy_hostname}.${_param:cluster_domain}
+        prx01:
+          address: ${_param:kubernetes_proxy_node01_address}
+          names:
+          - ${_param:kubernetes_proxy_node01_hostname}
+          - ${_param:kubernetes_proxy_node01_hostname}.${_param:cluster_domain}
+        prx02:
+          address: ${_param:kubernetes_proxy_node02_address}
+          names:
+          - ${_param:kubernetes_proxy_node02_hostname}
+          - ${_param:kubernetes_proxy_node02_hostname}.${_param:cluster_domain}
+        ctl:
+          address: ${_param:kubernetes_control_address}
+          names:
+          - ${_param:kubernetes_control_hostname}
+          - ${_param:kubernetes_control_hostname}.${_param:cluster_domain}
+        ctl01:
+          address: ${_param:kubernetes_control_node01_address}
+          names:
+          - ${_param:kubernetes_control_node01_hostname}
+          - ${_param:kubernetes_control_node01_hostname}.${_param:cluster_domain}
+        ctl02:
+          address: ${_param:kubernetes_control_node02_address}
+          names:
+          - ${_param:kubernetes_control_node02_hostname}
+          - ${_param:kubernetes_control_node02_hostname}.${_param:cluster_domain}
+        ctl03:
+          address: ${_param:kubernetes_control_node03_address}
+          names:
+          - ${_param:kubernetes_control_node03_hostname}
+          - ${_param:kubernetes_control_node03_hostname}.${_param:cluster_domain}

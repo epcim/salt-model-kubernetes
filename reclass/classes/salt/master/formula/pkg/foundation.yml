@@ -1,0 +1,43 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            aptcacher:
+              name: salt-formula-aptcacher
+              source: pkg
+            aptly:
+              name: salt-formula-aptly
+              source: pkg
+            bind:
+              name: salt-formula-bind
+              source: pkg
+            debmirror:
+              name: salt-formula-debmirror
+              source: pkg
+            freeipa:
+              name: salt-formula-freeipa
+              source: pkg
+            gerrit:
+              name: salt-formula-gerrit
+              source: pkg
+            jenkins:
+              name: salt-formula-jenkins
+              source: pkg
+            lldp:
+              name: salt-formula-lldp
+              source: pkg
+            maas:
+              name: salt-formula-maas
+              source: pkg
+            openldap:
+              name: salt-formula-openldap
+              source: pkg
+            powerdns:
+              name: salt-formula-powerdns
+              source: pkg
+            tinyproxy:
+              name: salt-formula-tinyproxy
+              source: pkg
+

@@ -1,0 +1,10 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            ceph:
+              name: salt-formula-ceph
+              source: pkg
+

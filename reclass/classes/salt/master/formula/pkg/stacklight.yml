@@ -1,0 +1,52 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            apache:
+              name: salt-formula-apache
+              source: pkg
+            collectd:
+              name: salt-formula-collectd
+              source: pkg
+            elasticsearch:
+              name: salt-formula-elasticsearch
+              source: pkg
+            grafana:
+              name: salt-formula-grafana
+              source: pkg
+            graphite:
+              name: salt-formula-graphite
+              source: pkg
+            heka:
+              name: salt-formula-heka
+              source: pkg
+            influxdb:
+              name: salt-formula-influxdb
+              source: pkg
+            java:
+              name: salt-formula-java
+              source: pkg
+            kibana:
+              name: salt-formula-kibana
+              source: pkg
+            nagios:
+              name: salt-formula-nagios
+              source: pkg
+            postgresql:
+              name: salt-formula-postgresql
+              source: pkg
+            rabbitmq:
+              name: salt-formula-rabbitmq
+              source: pkg
+            redis:
+              name: salt-formula-redis
+              source: pkg
+            rsyslog:
+              name: salt-formula-rsyslog
+              source: pkg
+            sensu:
+              name: salt-formula-sensu
+              source: pkg
+

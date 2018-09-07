@@ -1,0 +1,46 @@
+parameters:
+  _param:
+    kubernetes_control_node01_deploy_address: ${_param:kubernetes_control_node01_address}
+    kubernetes_control_node01_hostname: ctl01
+    kubernetes_control_node02_deploy_address: ${_param:kubernetes_control_node02_address}
+    kubernetes_control_node02_hostname: ctl02
+    kubernetes_control_node03_deploy_address: ${_param:kubernetes_control_node03_address}
+    kubernetes_control_node03_hostname: ctl03
+    kubernetes_control_system_codename: xenial
+  reclass:
+    storage:
+      node:
+        kubernetes_control_node01:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.control
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_control_node01_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_control_node01_deploy_address}
+            keepalived_vip_priority: 103
+            linux_system_codename: ${_param:kubernetes_control_system_codename}
+            salt_master_host: ${_param:reclass_config_master}
+            single_address: ${_param:kubernetes_control_node01_address}
+        kubernetes_control_node02:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.control
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_control_node02_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_control_node02_deploy_address}
+            keepalived_vip_priority: 102
+            linux_system_codename: ${_param:kubernetes_control_system_codename}
+            salt_master_host: ${_param:reclass_config_master}
+            single_address: ${_param:kubernetes_control_node02_address}
+        kubernetes_control_node03:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.control
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_control_node03_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_control_node03_deploy_address}
+            keepalived_vip_priority: 101
+            linux_system_codename: ${_param:kubernetes_control_system_codename}
+            salt_master_host: ${_param:reclass_config_master}
+            single_address: ${_param:kubernetes_control_node03_address}
+

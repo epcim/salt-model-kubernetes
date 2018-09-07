@@ -1,0 +1,13 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            devops_portal:
+              name: salt-formula-devops-portal
+              source: pkg
+            rundeck:
+              name: salt-formula-rundeck
+              source: pkg
+

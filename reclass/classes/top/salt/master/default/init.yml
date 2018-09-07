@@ -1,0 +1,160 @@
+classes:
+- salt.minion.ca.salt_master
+- salt.master.single
+- salt.master.api
+- reclass.storage.salt
+- salt.master.pillar.composite.reclass
+- reclass.storage.system.physical_control_cluster
+#- system.reclass.storage.system.stacklight_log_cluster
+#- system.reclass.storage.system.stacklight_telemetry_cluster
+#- system.reclass.storage.system.stacklightv2_server_cluster
+#- system.reclass.storage.system.cicd_control_cluster
+#- system.reclass.storage.system.ceph_mon_cluster
+#- system.reclass.storage.system.ceph_rgw_cluster
+#- system.reclass.storage.system.kubernetes_proxy_cluster
+- reclass.storage.system.kubernetes_control_cluster
+- salt.minion.cert.k8s_server
+#- service.jenkins.client
+#- system.jenkins.client.credential.salt
+#- system.jenkins.client.job.deploy.openstack
+- top.infra.maas
+- top.infra.salt_master_formulas
+- top.infra
+#- cluster.lab.infra.backup.client_common
+- top.infra.networking.config
+parameters:
+  _param:
+    salt_master_base_environment: prd
+    reclass_data_repository: "https://github.com/Mirantis/mk-lab-salt-model.git"
+    reclass_data_revision: master
+    reclass_config_master: ${_param:infra_config_deploy_address}
+    single_address: ${_param:infra_config_address}
+    deploy_address: ${_param:infra_config_deploy_address}
+    linux_system_codename: xenial
+    salt_api_password_hash: "$6$QWjCfmDN$FpQh.7KF44bX/OUOoulkLoof8a0gbKGqj9qds.CNURlq/nIj7cL.v.6WaxNfm0G9iee8jg3P2dmOdBM/Y9ZKI."
+    salt_master_host: ${_param:infra_config_deploy_address}
+    jenkins_git_url: 'git@cfg01:/home/repo'
+    jenkins_gerrit_url: ${_param:jenkins_git_url}
+    salt_api_password: rwzHK90vYFUGWCwnWaGhTuiGFCkJm6CG
+    jenkins_salt_api_url: "http://${_param:salt_master_host}:6969"
+    jenkins_pipeline_library_url: git@cfg01:/home/repo/mcp-ci/pipeline-library
+    http_proxy_address: ""
+    http_proxy_port: ""
+    http_proxy: ""
+  jenkins:
+    client:
+      lib:
+        pipeline-library:
+          url: ${_param:jenkins_pipeline_library_url}
+          branch: ${_param:jenkins_pipelines_branch}
+      master:
+        host: ${_param:salt_master_host}
+        port: 8081
+        password: r00tme
+  salt:
+    master:
+      command_timeout: 600
+      user:
+        deploy:
+          permissions: ${_param:salt_master_api_permissions}
+      reactor:
+        reclass/minion/classify:
+        - salt://reclass/reactor/node_register.sls
+      backup: true
+    minion:
+      backup: true
+  reclass:
+    storage:
+      data_source:
+        engine: local
+      class_mapping:
+        kubernetes_compute:
+          expression: <<node_hostname>>__startswith__cmp
+          node_class:
+            value_template:
+              - cluster.<<node_cluster>>.kubernetes.compute
+          node_param:
+            linux_system_codename:
+              value_template: <<node_os>>
+            salt_master_host:
+              value_template: <<node_master_ip>>
+            single_address:
+              value_template: <<node_control_ip>>
+            tenant_address:
+              value_template: <<node_tenant_ip>>
+      node:
+        infra_kvm_node01:
+          classes:
+          - top.infra.glusterfs
+          params:
+            keepalived_vip_priority: 100
+            linux_system_codename: xenial
+        infra_kvm_node02:
+          classes:
+          - top.infra.glusterfs
+          params:
+            keepalived_vip_priority: 101
+            linux_system_codename: xenial
+        infra_kvm_node03:
+          classes:
+          - cluster.${_param:cluster_name}.infra.backup.server
+          - top.infra.glusterfs
+          params:
+            keepalived_vip_priority: 102
+            linux_system_codename: xenial
+        kubernetes_control_node01:
+          params:
+            tenant_address: ${_param:kubernetes_control_node01_tenant_address}
+        kubernetes_control_node02:
+          params:
+            tenant_address: ${_param:kubernetes_control_node02_tenant_address}
+        kubernetes_control_node03:
+          params:
+            tenant_address: ${_param:kubernetes_control_node03_tenant_address}
+        kubernetes_proxy_node01:
+          params:
+            linux_system_codename: xenial
+        kubernetes_proxy_node02:
+          params:
+            linux_system_codename: xenial
+            #        stacklight_telemetry_node01:
+            #          classes:
+            #          - galera.master.cluster
+            #          params:
+            #            mysql_cluster_role: master
+            #        stacklight_telemetry_node02:
+            #          classes:
+            #          - galera.slave.cluster
+            #          params:
+            #            mysql_cluster_role: slave
+            #        stacklight_telemetry_node03:
+            #          classes:
+            #          - galera.slave.cluster
+            #          params:
+            #            mysql_cluster_role: slave
+            #        stacklight_log_node01:
+            #          classes:
+            #          - elasticsearch.client.single
+            #          - kibana.client.single
+            #        ceph_osd_rack01:
+            #          name: ${_param:ceph_osd_rack01_hostname}<<count>>
+            #          domain: ${_param:cluster_domain}
+            #          classes:
+            #            - cluster.${_param:cluster_name}.ceph.osd
+            #          repeat:
+            #            count: 10
+            #            ip_ranges:
+            #              single_address: -
+            #              backend_address: -
+            #            start: 1
+            #            digits: 3
+            #            params:
+            #              single_address:
+            #                value: <<single_address>>
+            #              backend_address:
+            #                value: <<backend_address>>
+            #          params:
+            #            salt_master_host: ${_param:reclass_config_master}
+            #            ceph_crush_parent: rack01
+            #            linux_system_codename: xenial
+

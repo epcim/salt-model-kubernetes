@@ -1,0 +1,9 @@
+classes:
+- top.kubernetes.common
+- top.kubernetes.networking.physical
+- top.infra
+parameters:
+  _param:
+    deploy_nic: eth0
+    primary_first_nic: eth1
+    primary_second_nic: eth2

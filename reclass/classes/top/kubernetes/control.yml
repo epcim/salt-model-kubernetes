@@ -1,0 +1,73 @@
+classes:
+- etcd.server.cluster
+- haproxy.proxy.listen.kubernetes.apiserver
+- keepalived.cluster.instance.kube_api_server_vip
+- salt.minion.cert.etcd_server
+- kubernetes.master.cluster
+- kubernetes.master.auth.rbac
+- kubernetes.control.roles.cluster-admin
+- kubernetes.control.roles.fluentd-view
+- top.kubernetes.common
+- top.kubernetes.networking.physical
+- top.infra
+parameters:
+  _param:
+    deploy_nic: ens3
+    primary_first_nic: ens4
+    primary_second_nic: ens5
+    keepalived_k8s_apiserver_vip_interface: ens4
+    keepalived_k8s_apiserver_vip_address: ${_param:kubernetes_control_address}
+    keepalived_k8s_apiserver_vip_password: password
+  etcd:
+    server:
+      source:
+        engine: docker_hybrid
+      ssl:
+        enabled: True
+      setup:
+        calico:
+          # key: /calico/v1/ipam/v4/pool/${_param:calico_private_network}-${_param:calico_private_netmask}
+          key: /calico/ipam/v2/assignment/ipv4/block/${_param:calico_private_network}-${_param:calico_private_netmask}
+          value: '{"masquerade":true,"cidr":"${_param:calico_private_network}/${_param:calico_private_netmask}"}'
+          # if IP-in-IP is required
+          # value: '{"ipip":"tunl0","ipip_mode":"always","ipam":true,"disabled":false, "masquerade":true,"cidr":"${_param:calico_private_network}/${_param:calico_private_netmask}"}'
+  kubernetes:
+    master:
+      etcd:
+        ssl:
+          enabled: True
+      network:
+        enabled: true
+        calico:
+          etcd:
+            ssl:
+              enabled: True
+          policy:
+            enabled: False
+          prometheus:
+            enabled: true
+      namespace:
+        netchecker:
+          enabled: true
+    common:
+      addons:
+        netchecker:
+          enabled: true
+        helm:
+          enabled: false
+        coredns:
+          domain: ${_param:cluster_domain}
+          server: ${_param:kubernetes_internal_dns_address}
+        metallb:
+          addresses:
+          - 10.0.1.192/26
+        storageclass:
+          rbd:
+            enabled: True
+            default: True
+            provisioner: rbd
+            name: rbd
+            user_id: ${_param:kubernetes_rbd_user_id}
+            user_key: ${_param:kubernetes_rbd_user_key}
+            monitors: ${_param:kubernetes_rbd_monitors}
+            pool: ${_param:kubernetes_rbd_pool}

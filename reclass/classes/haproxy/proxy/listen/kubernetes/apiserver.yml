@@ -1,0 +1,26 @@
+parameters:
+  haproxy:
+    proxy:
+      listen:
+        k8s_secure:
+          binds:
+          - address: ${_param:cluster_vip_address}
+            port: 443
+          servers:
+          - host: ${_param:cluster_node01_address}
+            name: ${_param:cluster_node01_hostname}
+            params: check check-ssl verify none
+            port: 6443
+          - host: ${_param:cluster_node02_address}
+            name: ${_param:cluster_node02_hostname}
+            params: check check-ssl verify none
+            port: 6443
+          - host: ${_param:cluster_node03_address}
+            name: ${_param:cluster_node03_hostname}
+            params: check check-ssl verify none
+            port: 6443
+          timeout:
+            client: 10m
+            server: 10m
+          type: kubernetes
+

@@ -1,0 +1,9 @@
+parameters:
+  salt:
+    minion:
+      cert:
+        proxy:
+          all_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}-chain-with-key.pem
+          cert_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.crt
+          key_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.key
+

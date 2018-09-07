@@ -1,0 +1,9 @@
+applications:
+- glusterfs
+classes:
+- glusterfs.support
+parameters:
+  glusterfs:
+    client:
+      enabled: true
+

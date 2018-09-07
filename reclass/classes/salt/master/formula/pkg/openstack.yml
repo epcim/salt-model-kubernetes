@@ -1,0 +1,106 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            aodh:
+              name: salt-formula-aodh
+              source: pkg
+            avinetworks:
+              name: salt-formula-avinetworks
+              source: pkg
+            barbican:
+              name: salt-formula-barbican
+              source: pkg
+            billometer:
+              name: salt-formula-billometer
+              source: pkg
+            ceilometer:
+              name: salt-formula-ceilometer
+              source: pkg
+            ceph:
+              name: salt-formula-ceph
+              source: pkg
+            cinder:
+              name: salt-formula-cinder
+              source: pkg
+            designate:
+              name: salt-formula-designate
+              source: pkg
+            galera:
+              name: salt-formula-galera
+              source: pkg
+            glance:
+              name: salt-formula-glance
+              source: pkg
+            glusterfs:
+              name: salt-formula-glusterfs
+              source: pkg
+            gnocchi:
+              name: salt-formula-gnocchi
+              source: pkg
+            haproxy:
+              name: salt-formula-haproxy
+              source: pkg
+            heat:
+              name: salt-formula-heat
+              source: pkg
+            horizon:
+              name: salt-formula-horizon
+              source: pkg
+            keepalived:
+              name: salt-formula-keepalived
+              source: pkg
+            keystone:
+              name: salt-formula-keystone
+              source: pkg
+            memcached:
+              name: salt-formula-memcached
+              source: pkg
+            mongodb:
+              name: salt-formula-mongodb
+              source: pkg
+            murano:
+              name: salt-formula-murano
+              source: pkg
+            mysql:
+              name: salt-formula-mysql
+              source: pkg
+            neutron:
+              name: salt-formula-neutron
+              source: pkg
+            nginx:
+              name: salt-formula-nginx
+              source: pkg
+            nova:
+              name: salt-formula-nova
+              source: pkg
+            octavia:
+              name: salt-formula-octavia
+              source: pkg
+            opencontrail:
+              name: salt-formula-opencontrail
+              source: pkg
+            oslo_templates:
+              name: salt-formula-oslo-templates
+              source: pkg
+            panko:
+              name: salt-formula-panko
+              source: pkg
+            python:
+              name: salt-formula-python
+              source: pkg
+            rabbitmq:
+              name: salt-formula-rabbitmq
+              source: pkg
+            sahara:
+              name: salt-formula-sahara
+              source: pkg
+            statsd:
+              name: salt-formula-statsd
+              source: pkg
+            supervisor:
+              name: salt-formula-supervisor
+              source: pkg
+

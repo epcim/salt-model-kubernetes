@@ -1,0 +1,6 @@
+classes:
+- linux.system.repo.mcp.salt
+- linux.system.repo.mcp.extra
+- linux.system.repo.mcp.apt_mirantis.ubuntu
+- linux.system.repo.mcp.apt_mirantis.glusterfs
+- linux.system.repo.mcp.apt_mirantis.saltstack

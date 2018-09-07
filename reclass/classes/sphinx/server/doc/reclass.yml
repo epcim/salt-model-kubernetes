@@ -1,0 +1,25 @@
+classes:
+- sphinx.server.multi
+parameters:
+  _param:
+    nginx_static_reclass_doc_host: ${_param:cluster_public_host}
+  nginx:
+    server:
+      site:
+        nginx_static_reclass_doc:
+          enabled: true
+          host:
+            name: ${_param:nginx_static_reclass_doc_host}
+            port: 8090
+            protocol: http
+          name: reclass_doc
+          type: nginx_static
+  sphinx:
+    server:
+      doc:
+        reclass_doc:
+          builder: singlehtml
+          path: source
+          source:
+            engine: reclass
+

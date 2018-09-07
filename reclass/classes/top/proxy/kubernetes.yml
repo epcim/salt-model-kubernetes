@@ -1,0 +1,29 @@
+classes:
+- linux.system.repo.mcp.extra
+- linux.system.repo.mcp.apt_mirantis.openstack
+- linux.system.repo.mcp.apt_mirantis.ubuntu
+- linux.system.repo.mcp.apt_mirantis.saltstack
+- linux.system.repo.mcp.apt_mirantis.glusterfs
+- glusterfs.client.cluster
+- glusterfs.client.volume.salt_pki
+- nginx.server.single
+
+- salt.minion.cert.proxy
+- salt.minion.cert.proxy.pki
+- sphinx.server.doc.reclass
+  #CLOUD- keepalived.cluster.single
+- top.infra
+- top.stacklight.proxy
+parameters:
+  _param:
+    keepalived_vip_interface: ens3
+    keepalived_vip_virtual_router_id: 240
+    nginx_proxy_ssl:
+      enabled: true
+      authority: ${_param:salt_minion_ca_authority}
+      engine: salt
+      mode: secure
+      key_file:  /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.key
+      cert_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.crt
+      chain_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}-with-chain.crt
+    cluster_vip_address: ${_param:kubernetes_proxy_address}

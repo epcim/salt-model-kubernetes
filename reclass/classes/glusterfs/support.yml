@@ -1,0 +1,22 @@
+parameters:
+  glusterfs:
+    _support:
+      collectd:
+        enabled: true
+      fluentd:
+        enabled: true
+      grafana:
+        enabled: true
+      heka:
+        enabled: true
+      iptables:
+        enabled: true
+      prometheus:
+        enabled: true
+      sensu:
+        enabled: false
+      sphinx:
+        enabled: true
+      telegraf:
+        enabled: true
+

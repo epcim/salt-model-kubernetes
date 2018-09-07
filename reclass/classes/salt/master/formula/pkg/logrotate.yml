@@ -1,0 +1,10 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            logrotate:
+              name: salt-formula-logrotate
+              source: pkg
+

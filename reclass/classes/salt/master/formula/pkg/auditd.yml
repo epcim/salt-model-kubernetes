@@ -1,0 +1,10 @@
+parameters:
+  salt:
+    master:
+      environment:
+        prd:
+          formula:
+            auditd:
+              name: salt-formula-auditd
+              source: pkg
+
