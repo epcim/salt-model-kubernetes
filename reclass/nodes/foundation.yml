@@ -1,0 +1,21 @@
+# NOTE, unless there are some classes loaded, keep it commented
+#classes:
+
+parameters:
+  reclass:
+    enabled: true
+    storage:
+      enabled: true
+      class_mapping: {}
+        # NOTE, this is simple, innocent example, foundation doesn't need it
+        # use on salt-master by loading proper class from your reclass model
+        #foundation:
+        #  #expression: <<id>>__startswith__foundation
+        #  expression: all
+        #  node_class:
+        #    #value_template:
+        #    # - linux.system.<<os>>
+        #    value:
+        #      - linux.system.motd
+
+
