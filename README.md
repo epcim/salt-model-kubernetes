@@ -1,8 +1,14 @@
-THIS IS AN PoC/Example that will dramatically change!
 
-THIS will became an independent repo once the demo purpose is over.
+An example full-stack bare metal Kubernetes model
 
-Folder usage:
-* pillars - salt pillars
-* classes - reclass classes
-* nodes   - reclass nodes
+NOTE:
+This model is subject consolidation as well as validation.
+
+Folder structure:
+
+    pillars   - salt pillars
+    states    - salt states
+    reclass
+      classes - reclass classes
+      nodes   - reclass nodes
+    docs      - documentation
