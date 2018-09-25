@@ -1,8 +1,9 @@
 
-An example full-stack bare metal Kubernetes model
+An example minimalist Kubernetes model to be deployed on cloud.
 
 NOTE:
-This model is subject consolidation as well as validation.
+- Work in progress.
+- This model is subject consolidation as well as validation.
 
 Folder structure:
 
@@ -10,5 +11,6 @@ Folder structure:
     states    - salt states
     reclass
       classes - reclass classes
+        top   - topology, roles
       nodes   - reclass nodes
     docs      - documentation
